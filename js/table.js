@@ -18,6 +18,7 @@ function populateTable(data) {
     const tableBody = document.getElementById('table-body');
 
     data.forEach(row => {
+        // 기본 테이블 행 생성
         const tr = document.createElement('tr');
 
         const farmnumbercell = document.createElement('td');
@@ -44,23 +45,38 @@ function populateTable(data) {
         farmownertrickal.textContent = row['농장주 이름'];
         tr.appendChild(farmownertrickal);
 
-        // 가입조건과 농장소개는 숨김처리
-        const farmenterence = document.createElement('td');
-        farmenterence.textContent = row['가입조건']; 
-        farmenterence.style.display = 'none'; // 처음에 숨김
-        tr.appendChild(farmenterence);
+        // 삼각형 아이콘 추가
+        const toggleCell = document.createElement('td');
+        const toggleIcon = document.createElement('span');
+        toggleIcon.textContent = '▼'; // 처음엔 닫힌 상태
+        toggleIcon.style.cursor = 'pointer';
+        toggleIcon.style.color = 'black'; 
+        toggleCell.appendChild(toggleIcon);
+        tr.appendChild(toggleCell);
 
-        const farmintroduce = document.createElement('td');
-        farmintroduce.textContent = row['농장 소개'];
-        farmintroduce.style.display = 'none'; // 처음에 숨김
-        tr.appendChild(farmintroduce);
+        // "가입조건"과 "농장소개"를 포함하는 숨김 행 추가
+        const detailsRow = document.createElement('tr');
+        const detailsCell = document.createElement('td');
+        detailsCell.colSpan = 5; // 전체 열을 차지하게 설정
+        detailsCell.style.display = 'none'; // 처음에 숨김
+        detailsCell.innerHTML = `
+            <strong>가입조건:</strong> ${row['가입조건']}<br>
+            <strong>농장 소개:</strong> ${row['농장 소개']}
+        `;
+        detailsRow.appendChild(detailsCell);
 
-        // 클릭 이벤트로 보이게 하기
-        tr.addEventListener('click', () => {
-            farmenterence.style.display = farmenterence.style.display === 'none' ? 'table-cell' : 'none';
-            farmintroduce.style.display = farmintroduce.style.display === 'none' ? 'table-cell' : 'none';
+        // 삼각형 클릭 이벤트
+        toggleIcon.addEventListener('click', () => {
+            const isExpanded = detailsCell.style.display === 'table-cell';
+            detailsCell.style.display = isExpanded ? 'none' : 'table-cell'; // 보이거나 숨기기
+            toggleIcon.textContent = isExpanded ? '▼' : '▲'; // 아이콘 변경
         });
 
+        // 테이블에 기본 행과 세부 정보 행 추가
         tableBody.appendChild(tr);
+        tableBody.appendChild(detailsRow);
+    });
+}
+
     });
 }
