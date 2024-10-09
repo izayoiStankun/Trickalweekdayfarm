@@ -21,7 +21,7 @@ function populateTable(data) {
         const tr = document.createElement('tr');
 
         const farmnumbercell = document.createElement('td');
-        farmnumbercell.textContent = row['농장번호']; // JSON 데이터의 키에 따라 변경 필요
+        farmnumbercell.textContent = row['농장번호']; 
         tr.appendChild(farmnumbercell);
 
         const farmNameCell = document.createElement('td');
@@ -31,7 +31,7 @@ function populateTable(data) {
         farmLink.target = '_blank';
         farmNameCell.appendChild(farmLink);
         tr.appendChild(farmNameCell);
-        
+
         const farmowneracralive = document.createElement('td');
         const farmonwerLink = document.createElement('a');
         farmonwerLink.textContent = row['농장주 아카계정'];
@@ -41,17 +41,25 @@ function populateTable(data) {
         tr.appendChild(farmowneracralive);
 
         const farmownertrickal = document.createElement('td');
-        farmownertrickal.textContent = row['농장주 이름']; // JSON 데이터의 키에 따라 변경 필요
+        farmownertrickal.textContent = row['농장주 이름'];
         tr.appendChild(farmownertrickal);
 
+        // 가입조건과 농장소개는 숨김처리
         const farmenterence = document.createElement('td');
-        farmenterence.textContent = row['가입조건']; // JSON 데이터의 키에 따라 변경 필요
+        farmenterence.textContent = row['가입조건']; 
+        farmenterence.style.display = 'none'; // 처음에 숨김
         tr.appendChild(farmenterence);
 
         const farmintroduce = document.createElement('td');
-        farmintroduce.textContent = row['농장 소개']; // JSON 데이터의 키에 따라 변경 필요
+        farmintroduce.textContent = row['농장 소개'];
+        farmintroduce.style.display = 'none'; // 처음에 숨김
         tr.appendChild(farmintroduce);
 
+        // 클릭 이벤트로 보이게 하기
+        tr.addEventListener('click', () => {
+            farmenterence.style.display = farmenterence.style.display === 'none' ? 'table-cell' : 'none';
+            farmintroduce.style.display = farmintroduce.style.display === 'none' ? 'table-cell' : 'none';
+        });
 
         tableBody.appendChild(tr);
     });
