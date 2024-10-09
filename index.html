@@ -23,20 +23,25 @@
         }
         table {
             width: 100%;
-            border-collapse: separate;
-            margin: 20px 0;
-            font-size: 14px;
-            text-align: left;
+            border-collapse: collapse;
         }
+
         th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
+            border: 0.5px solid #ddd;
+            padding: 10px;
         }
+
         th {
             background-color: #f2f2f2;
         }
-        tr:nth-child(even) {
+
+        .expandable {
+            cursor: pointer;
             background-color: #f9f9f9;
+        }
+
+        .hidden-content {
+            display: none;
         }
         @media (max-width: 600px) {
             table, thead, tbody, th, td, tr {
@@ -69,6 +74,7 @@
                 white-space: nowrap;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -112,9 +118,11 @@
                     <th>농장이름</th>
                     <th>농장주 아카계정</th>
                     <th>농장주인</th>
-
+                    <th>더보기</th> <!-- 삼각형 아이콘 열 -->
                 </tr>
             </thead>
+
+
             <tbody id="table-body">
                 <!-- 데이터가 삽입될 부분 -->
             </tbody>
@@ -126,12 +134,16 @@
     <!-- Core theme JS-->
     <script src="js/table.js"></script>
 
+    <button onclick="scrollToTop()" id="scrollToTopBtn" style="position: fixed; bottom: 10px; right: 10px; display: none;">
+        ↑ 맨 위로
+    </button>
+
     <!-- Page content 2-->
     <div class="container">
         <div class="text-center mt-5">
             <h3></h3>
             <p class="lead"> 홈페이지 문의사항은 <a href="https://arca.live/u/@눈나하야히데">요기로</a></p>
-            <p>나머지는 채널관리파딱한테</p>
+            <p>채널평일농장 일체에 관한 문의는 채널관리파딱한테</p>
             <p>Bootstrap v5.2.3 기반제작</p>
         </div>
     </div>
